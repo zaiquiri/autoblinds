@@ -19,15 +19,20 @@ class Motor:
         GPIO.setup(self.pins['f'],GPIO.OUT)
         GPIO.setup(self.pins['r'],GPIO.OUT)
 
+	self.PWM = GPIO.PWM(self.pins['e'], 50)
+	self.PWM.start(0)
+
         GPIO.output(self.pins['e'],GPIO.HIGH)
         GPIO.output(self.pins['f'],GPIO.LOW)
         GPIO.output(self.pins['r'],GPIO.LOW)
 
-    def forward(self):
+    def forward(self, speed):
+	self.PWM.ChangeDutyCycle(speed)
         GPIO.output(self.pins['f'],GPIO.HIGH)
         GPIO.output(self.pins['r'],GPIO.LOW)
 
-    def reverse(self):
+    def reverse(self, speed):
+	self.PWM.ChangeDutyCycle(speed)
         GPIO.output(self.pins['f'],GPIO.LOW)
         GPIO.output(self.pins['r'],GPIO.HIGH)
 
